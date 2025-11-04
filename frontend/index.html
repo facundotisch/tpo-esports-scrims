@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>eScrims Front Demo</title>
+  <link rel="stylesheet" href="./styles.css"/>
+</head>
+<body>
+  <header>
+    <h1>🎮 eScrims Front Demo</h1>
+    <div class="config">
+      <label>API Base:</label>
+      <input id="apiBase" value="http://localhost:8080" />
+      <button id="saveConfig">Guardar</button>
+    </div>
+  </header>
+
+  <main>
+    <section class="panel">
+      <h2>Crear Scrim</h2>
+      <div class="form-grid">
+        <label>Juego</label><input id="juego" value="Valorant" />
+        <label>Formato</label><input id="formato" value="5v5" />
+        <label>Rango Min</label><input id="rangoMin" type="number" step="0.1" value="1" />
+        <label>Rango Max</label><input id="rangoMax" type="number" step="0.1" value="10" />
+        <label>Región</label><input id="region" value="LATAM" />
+        <label>Latencia Máx</label><input id="latenciaMax" type="number" value="80" />
+      </div>
+      <button id="btnCrear">Crear</button>
+    </section>
+
+    <section class="panel">
+      <h2>Scrims</h2>
+      <div class="toolbar">
+        <button id="btnListar">Listar</button>
+        <label>ID</label><input id="scrimId" placeholder="ID de scrim" />
+        <button id="btnGet">Ver</button>
+      </div>
+      <div id="scrimsList" class="cards"></div>
+    </section>
+
+    <section class="panel">
+      <h2>Acciones</h2>
+      <div class="form-grid">
+        <label>Scrim ID</label><input id="accionScrimId" placeholder="ID"/>
+        <label>Jugador</label><input id="jugadorNombre" placeholder="Nombre jugador (opcional)"/>
+      </div>
+      <div class="toolbar wrap">
+        <button id="btnAddPlayer">➕ Agregar jugador</button>
+        <button id="btnConfirm">✅ Confirmar</button>
+        <button id="btnStart">▶️ Iniciar</button>
+        <button id="btnFinish">🏁 Finalizar</button>
+        <button id="btnCancel">⛔ Cancelar</button>
+      </div>
+    </section>
+
+    <section class="panel">
+      <h2>Log</h2>
+      <pre id="log"></pre>
+    </section>
+  </main>
+
+  <footer>
+    <small>Configura los endpoints en <code>app.js</code> si tu backend usa rutas distintas.</small>
+  </footer>
+
+  <script src="./app.js"></script>
+</body>
+</html>
