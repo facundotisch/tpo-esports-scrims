@@ -3,6 +3,9 @@ package tpfinal.scrims.demo.domain.model;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import tpfinal.scrims.demo.domain.state.*;
+import tpfinal.scrims.*;
+import tpfinal.scrims.demo.domain.adapter.*;
 
 public class Scrim {
     private String id;
@@ -14,6 +17,7 @@ public class Scrim {
     private double latenciaMax;
     private LocalDate fecha;
     private ScrimState estado;
+    private EstrategiaMatchmaking estrategia;
     private List<Usuario> jugadores = new ArrayList<>();
     private List<Observer> observers = new ArrayList<>();
 
@@ -21,18 +25,39 @@ public class Scrim {
         this.estado = new EstadoBuscandoJugadores();
     }
 
+    // Observer
     public void agregarObserver(Observer obs) { observers.add(obs); }
     public void notificarCambio(String evento) {
-        observers.forEach(o -> o.update(evento));
+        System.out.println("[OBSERVER] Notificando cambio: " + evento);
+        for (Observer o : observers) {
+            o.update(evento);
+        }
     }
 
+    // State
     public void agregarJugador(Usuario u) { estado.agregarJugador(this, u); }
     public void confirmarJugador(Usuario u) { estado.confirmarJugador(this, u); }
     public void setEstado(ScrimState nuevo) {
         this.estado = nuevo;
         notificarCambio("Estado: " + nuevo.getClass().getSimpleName());
     }
+    public ScrimState getEstado() { return estado; }
 
+    // Strategy
+    public void setEstrategia(EstrategiaMatchmaking estrategia) { this.estrategia = estrategia; }
+    public void emparejar() {
+        if (estrategia != null)
+            estrategia.emparejar(this);
+        else
+            System.out.println("[WARN] No hay estrategia asignada al scrim.");
+    }
+
+    // Command (opcional)
+    public void asignarRol(Usuario u, String rol) {
+        System.out.println("Jugador " + u.getNombre() + " asignado al rol: " + rol);
+    }
+
+    // Getters y setters
     public String getJuego() { return juego; }
     public void setJuego(String juego) { this.juego = juego; }
     public String getFormato() { return formato; }
