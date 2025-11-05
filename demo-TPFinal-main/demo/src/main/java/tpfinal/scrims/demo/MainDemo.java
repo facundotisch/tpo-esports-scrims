@@ -1,6 +1,7 @@
 package tpfinal.scrims.demo;
 
 import tpfinal.scrims.demo.domain.model.*;
+import tpfinal.scrims.demo.domain.model.factory.*;
 import java.time.LocalDate;
 
 public class MainDemo {
